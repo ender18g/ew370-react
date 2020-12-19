@@ -3,12 +3,28 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { FirebaseAppProvider, SuspenseWithPerf } from 'reactfire';
+
+const firebaseConfig = {
+	apiKey: 'AIzaSyDinZuBXMQbPuXTrEdl4DGRVH-EPZdK5ug',
+	authDomain: 'mlbrain-855e7.firebaseapp.com',
+	databaseURL: 'https://mlbrain-855e7.firebaseio.com',
+	projectId: 'mlbrain-855e7',
+	storageBucket: 'mlbrain-855e7.appspot.com',
+	messagingSenderId: '465924632238',
+	appId: '1:465924632238:web:70b361f129fe718078473f',
+	measurementId: 'G-T76ESPE2N6'
+};
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<FirebaseAppProvider firebaseConfig={firebaseConfig}>
+			<SuspenseWithPerf fallback={'Loading'}>
+				<App />
+			</SuspenseWithPerf>
+		</FirebaseAppProvider>
+	</React.StrictMode>,
+	document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
