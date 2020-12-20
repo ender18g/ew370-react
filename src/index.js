@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { FirebaseAppProvider, SuspenseWithPerf } from 'reactfire';
+import { ChakraProvider } from '@chakra-ui/react';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyDinZuBXMQbPuXTrEdl4DGRVH-EPZdK5ug',
@@ -18,11 +19,13 @@ const firebaseConfig = {
 
 ReactDOM.render(
 	<React.StrictMode>
-		<FirebaseAppProvider firebaseConfig={firebaseConfig}>
-			<SuspenseWithPerf fallback={'Loading'}>
-				<App />
-			</SuspenseWithPerf>
-		</FirebaseAppProvider>
+		<ChakraProvider>
+			<FirebaseAppProvider firebaseConfig={firebaseConfig}>
+				<SuspenseWithPerf fallback={'Loading'}>
+					<App />
+				</SuspenseWithPerf>
+			</FirebaseAppProvider>
+		</ChakraProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

@@ -1,11 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import Menu from './menu';
+import { Flex } from '@chakra-ui/react';
+import Menu from './Menu';
+import Header from './Header';
 
 function App() {
 	return (
 		<div className="App">
-			<Menu />
+			<Header />
+			<Flex margin={4}>
+				<Menu />
+			</Flex>
 		</div>
 	);
 }

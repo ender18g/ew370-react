@@ -1,0 +1,6 @@
+.nav-logo {
+	max-height: 60px;
+	-webkit-filter: drop-shadow(0px 0px 3px rgba(255, 255, 255, .3));
+	filter: drop-shadow(0px 0px 3px rgba(254, 254, 254, .3));
+	transition: all 1.5s ease;
+}

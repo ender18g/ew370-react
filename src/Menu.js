@@ -1,11 +1,10 @@
-import logo from './logo.svg';
+import React from 'react';
+import { Box, Heading, Flex, Text, Button, Image } from '@chakra-ui/react';
 
-function Menu() {
+export default function Menu() {
 	return (
-		<div className="Menu">
-			<h1> Menu here!</h1>
-		</div>
+		<Box width="350px" borderRadius="md" border="2px solid gray">
+			<Box>Item 1</Box>
+		</Box>
 	);
 }
-
-export default Menu;
