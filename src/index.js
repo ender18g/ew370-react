@@ -21,9 +21,7 @@ ReactDOM.render(
 	<React.StrictMode>
 		<ChakraProvider>
 			<FirebaseAppProvider firebaseConfig={firebaseConfig}>
-				<SuspenseWithPerf fallback={'Loading'}>
-					<App />
-				</SuspenseWithPerf>
+				<App />
 			</FirebaseAppProvider>
 		</ChakraProvider>
 	</React.StrictMode>,

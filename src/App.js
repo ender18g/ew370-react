@@ -1,17 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
-import { Flex } from '@chakra-ui/react';
-import Menu from './Menu';
+import { Box } from '@chakra-ui/react';
 import Header from './Header';
+import Home from './Home';
 
 function App() {
 	return (
-		<div className="App">
+		<Box className="App">
 			<Header />
-			<Flex margin={4}>
-				<Menu />
-			</Flex>
-		</div>
+			<Home />
+		</Box>
 	);
 }
 

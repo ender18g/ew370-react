@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, Heading, Flex, Text, Button, Image } from '@chakra-ui/react';
-import { useAuth } from 'reactfire';
+import { Heading, Flex, Image } from '@chakra-ui/react';
 import './Header.css';
 import logo from './WRCLogo.png';
 
