@@ -10,15 +10,15 @@ export default function Menu(props) {
 				<Box>
 					<Box
 						onClick={() => {
+							window.localStorage.setItem('currLesson', key);
 							setCurrLesson(key);
 						}}
 						key={key}
 						paddingY={3}
-						borderRadius="md"
 						className={key === currLesson ? '' : 'menu-item'}
 						bg={key === currLesson ? 'teal.300' : ''}
 					>
-						<Text fontWeight="400">{content[key].title}</Text>
+						<Text fontWeight={key === currLesson ? '600' : '400'}>{content[key].title}</Text>
 					</Box>
 					<Divider />
 				</Box>
