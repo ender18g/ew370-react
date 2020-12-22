@@ -19,14 +19,16 @@ export default function Card(props) {
 					<Box>{description}</Box>
 				</Box>
 			</Link>
-			<IconButton
-				my={3}
-				size="sm"
-				aria-label="Search database"
-				colorScheme="red"
-				icon={<DeleteIcon />}
-				onClick={removeResource}
-			/>
+			{editOn && (
+				<IconButton
+					my={3}
+					size="sm"
+					aria-label="Search database"
+					colorScheme="red"
+					icon={<DeleteIcon />}
+					onClick={removeResource}
+				/>
+			)}
 		</Box>
 	);
 }

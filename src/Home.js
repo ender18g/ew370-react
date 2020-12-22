@@ -45,16 +45,13 @@ export const Home = (props) => {
 						<Menu content={content} currLesson={currLesson} setCurrLesson={setCurrLesson} />
 					</Box>
 					<Box minW="300px" w="100%" height="100%">
-						{editOn ? (
-							<EditForm content={content} currLesson={currLesson} saveResource={saveResource} />
-						) : (
-							<LessonPanel
-								removeResource={removeResource}
-								editOn={editOn}
-								content={content}
-								currLesson={currLesson}
-							/>
-						)}
+						<LessonPanel
+							removeResource={removeResource}
+							editOn={editOn}
+							content={content}
+							currLesson={currLesson}
+						/>
+						{editOn && <EditForm content={content} currLesson={currLesson} saveResource={saveResource} />}
 					</Box>
 				</Flex>
 			</Box>

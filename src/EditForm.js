@@ -3,7 +3,7 @@ import { Heading, Flex, Image, Input, Button, Box, Select, Text } from '@chakra-
 import Card from './Card';
 
 const EditForm = (props) => {
-	const { content, saveResource } = props;
+	const { content, saveResource, currLesson } = props;
 	const [ newResource, setNewResource ] = useState({
 		title: 'This is the title of your new resource',
 		description:
@@ -11,7 +11,7 @@ const EditForm = (props) => {
 		link: 'https://unsplash.com/photos/VBNb52J8Trk',
 		image:
 			'https://images.unsplash.com/photo-1460186136353-977e9d6085a1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-		lesson: 0
+		lesson: currLesson
 	});
 	const handleChange = (e) => {
 		const value = e.target.value;
