@@ -16,7 +16,7 @@ export const Home = (props) => {
 	useEffect(() => {
 		const storedLesson = window.localStorage.getItem('currLesson');
 		console.log(storedLesson);
-		if (storedLesson) setCurrLesson(storedLesson);
+		if (!isNaN(storedLesson)) setCurrLesson(storedLesson);
 	}, []);
 
 	const saveResource = ({ lesson, title, description, link, image }) => {
