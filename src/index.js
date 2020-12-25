@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { FirebaseAppProvider, SuspenseWithPerf } from 'reactfire';
+import { FirebaseAppProvider } from 'reactfire';
 import { ChakraProvider } from '@chakra-ui/react';
 
 const firebaseConfig = {

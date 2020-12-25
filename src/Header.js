@@ -1,7 +1,8 @@
-import React from 'react';
-import { Heading, Flex, Image, Link, Box, IconButton } from '@chakra-ui/react';
+import { Heading, Flex, Image, Link, IconButton } from '@chakra-ui/react';
 import './Header.css';
 import logo from './WRCLogo.png';
+import Auth from './Auth';
+import { SuspenseWithPerf } from 'reactfire';
 import { EditIcon } from '@chakra-ui/icons';
 
 const Header = (props) => {
@@ -21,6 +22,10 @@ const Header = (props) => {
 				</Link>
 			</Flex>
 			<Flex align="center">
+				<SuspenseWithPerf fallback="loading...">
+					<Auth />
+				</SuspenseWithPerf>
+				<Auth />
 				<IconButton
 					className="header-editIcon"
 					marginRight={5}

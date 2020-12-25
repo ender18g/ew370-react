@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heading, Flex, Image, Input, Button, Box, Select, Text } from '@chakra-ui/react';
+import { Heading, Flex, Input, Button, Box, Select, Text } from '@chakra-ui/react';
 import Card from './Card';
 
 const EditForm = (props) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Divider, Spinner } from '@chakra-ui/react';
+import { Box, Text, Divider } from '@chakra-ui/react';
 import './Menu.css';
 
 export default function Menu(props) {
@@ -7,9 +7,9 @@ export default function Menu(props) {
 	return (
 		<Box borderRadius="md" border="1px" borderColor="gray.200" boxShadow="md">
 			{Object.keys(content).map((key, index) => {
-				if (isNaN(key)) return <Box />;
+				if (isNaN(key)) return <Box key={index} />;
 				return (
-					<Box>
+					<Box key={index}>
 						<Box
 							onClick={() => {
 								window.localStorage.setItem('currLesson', key);
