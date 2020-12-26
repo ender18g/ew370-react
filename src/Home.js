@@ -13,11 +13,17 @@ export const Home = (props) => {
 	const contentResponse = useDatabaseObjectData(contentRef);
 	const { data: content } = contentResponse;
 	const [ currLesson, setCurrLesson ] = useState(0);
-	useEffect(() => {
-		const storedLesson = window.localStorage.getItem('currLesson');
-		console.log(storedLesson);
-		if (!isNaN(storedLesson)) setCurrLesson(storedLesson);
-	}, []);
+	useEffect(
+		() => {
+			if (content) {
+				const storedLesson = window.localStorage.getItem('currLesson');
+				console.log(storedLesson);
+				console.log(content);
+				if (content.hasOwnProperty(storedLesson)) setCurrLesson(storedLesson);
+			}
+		},
+		[ content ]
+	);
 
 	const saveResource = ({ lesson, title, description, link, image }) => {
 		const newRef = contentRef.child(`${lesson}/resources`).push();
