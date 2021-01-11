@@ -43,7 +43,11 @@ const EditForm = (props) => {
 						placeholder="Select Lesson"
 						mb={3}
 					>
-						{Object.keys(content).map((key, index) => <option value={key}>{content[key].title}</option>)}
+						{Object.keys(content).map((key, index) => (
+							<option key={key} value={key}>
+								{content[key].title}
+							</option>
+						))}
 					</Select>
 
 					<Text fontWeight="500" m={1} textAlign="left">

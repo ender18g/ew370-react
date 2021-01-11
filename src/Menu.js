@@ -7,15 +7,14 @@ export default function Menu(props) {
 	return (
 		<Box borderRadius="md" border="1px" borderColor="gray.200" boxShadow="md">
 			{Object.keys(content).map((key, index) => {
-				if (isNaN(key)) return <Box />;
+				if (isNaN(key)) return <Box key="9999" />;
 				return (
-					<Box>
+					<Box key={key}>
 						<Box
 							onClick={() => {
 								window.localStorage.setItem('currLesson', key);
 								setCurrLesson(key);
 							}}
-							key={key}
 							paddingY={3}
 							className={key === currLesson ? '' : 'menu-item'}
 							bg={key === currLesson ? 'teal.300' : ''}
