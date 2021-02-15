@@ -121,26 +121,29 @@ const trainData = () => {
 	net.train(trainingData, {
 		//   // Defaults values --> expected validation
 		iterations: iterations, // the maximum times to iterate the training data --> number greater than 0
-		errorThresh: 0.07, // the acceptable error percentage from training data --> number between 0 and 1
+		errorThresh: 0.05, // the acceptable error percentage from training data --> number between 0 and 1
 		log: true, // true to use console.log, when a function is supplied it is used --> Either true or a function
-		logPeriod: 100, // iterations between logging out --> number greater than 0
+		logPeriod: 50 // iterations between logging out --> number greater than 0
 		//   // learningRate: 0.3, // scales with delta to effect training rate --> number between 0 and 1
 		//   // momentum: 0.1, // scales with next layer's change value --> number between 0 and 1
-		callback: function(stats) {
-			counter.innerText = `Model Error: ${stats.error}`;
-		},
-		callbackPeriod: 100 // the number of iterations through the training data between callback calls --> number greater than 0
+		// callback: function(stats) {
+		// 	counter.innerText = `Model Error: ${stats.error}`;
+		// },
+		// callbackPeriod: 10 // the number of iterations through the training data between callback calls --> number greater than 0
 		//timeout: 15000 // the max number of milliseconds to train for --> number greater than 0
 	});
+
 	console.log('Training Complete!');
 	trainBtn.classList.remove('disabled');
 	trainBtn.innerText = 'Train';
 	running = false;
 	labelData = true;
-	populateTrainingDiv(recentDataObj);
 	JSONTextArea.innerText = '';
 	JSONTextArea.innerText = JSON.stringify(net.toJSON());
-	testData();
+	setTimeout(() => {
+    populateTrainingDiv(recentDataObj);
+    counter.innerText = 'Training Complete!';
+	}, 500);
 };
 
 //test the data in the test input box
