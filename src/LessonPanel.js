@@ -4,7 +4,7 @@ import Jumbotron from './Jumbotron';
 import Card from './Card';
 
 export default function LessonPanel(props) {
-	const { content, currLesson, removeResource, editOn } = props;
+	const { content, currLesson, removeResource, editOn, editResource} = props;
 	const lessonContent = content[currLesson];
 	const lessonResources = lessonContent.resources;
 	return (
@@ -21,6 +21,11 @@ export default function LessonPanel(props) {
 						removeResource={() => {
 							removeResource(currLesson, key);
 						}}
+            editResource={
+              ()=>{
+                editResource(currLesson, key);
+              }
+            }
 						editOn={editOn}
 					/>
 				))}

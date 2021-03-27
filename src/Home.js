@@ -12,6 +12,7 @@ export const Home = (props) => {
 	const contentRef = database.ref('content');
 	const contentResponse = useDatabaseObjectData(contentRef);
 	const { data: content } = contentResponse;
+  const [existingResource, setExistingResource] = useState(false);
 	const [ currLesson, setCurrLesson ] = useState(0);
 	useEffect(
 		() => {
@@ -29,13 +30,21 @@ export const Home = (props) => {
 		const newRef = contentRef.child(`${lesson}/resources`).push();
 		newRef.set({ title, description, image, link });
 		setCurrLesson(lesson);
-		toggleEdit();
+		// toggleEdit();
+    setExistingResource(false);
 	};
 
 	const removeResource = (lesson, resourceKey) => {
 		if (!resourceKey) return false;
 		contentRef.child(`${lesson}/resources/${resourceKey}`).remove();
 	};
+
+  const editResource = (lesson, resourceKey)=>{
+    if (!resourceKey) return false;
+    setExistingResource({lesson, resourceKey});
+    console.log("edit",existingResource)
+
+  }
 
 	if (!content)
 		return (
@@ -53,11 +62,12 @@ export const Home = (props) => {
 					<Box minW="300px" w="100%" height="100%">
 						<LessonPanel
 							removeResource={removeResource}
+              editResource={editResource}
 							editOn={editOn}
 							content={content}
 							currLesson={currLesson}
 						/>
-						{editOn && <EditForm content={content} currLesson={currLesson} saveResource={saveResource} />}
+						{editOn && <EditForm content={content} currLesson={currLesson} saveResource={saveResource} existingResource={existingResource}/>}
 					</Box>
 				</Flex>
 			</Box>

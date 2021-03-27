@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Heading, Flex, Image, Input, Button, Box, Select, Text } from '@chakra-ui/react';
 import Card from './Card';
 
 const EditForm = (props) => {
-	const { content, saveResource, currLesson } = props;
-	const [ newResource, setNewResource ] = useState({
-		title: 'This is the title of your new resource',
+	const { content, saveResource, currLesson, existingResource } = props;
+  const initResource = {
+    		title: 'This is the title of your new resource',
 		description:
 			'Here is a description. Make sure you lead the link with http:// and use a full link to an image. Unsplash.com is a great place to get free pictures. Just right click on an image your like and select "copy image address"',
 		link: 'https://unsplash.com/photos/VBNb52J8Trk',
 		image:
 			'https://images.unsplash.com/photo-1460186136353-977e9d6085a1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
 		lesson: currLesson
-	});
+  }
+	const [ newResource, setNewResource ] = useState(initResource);
 	const handleChange = (e) => {
 		const value = e.target.value;
 		const name = e.target.name;
@@ -25,6 +26,17 @@ const EditForm = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 	};
+
+  useEffect(() => {
+    console.log('ER',existingResource);
+    if(existingResource){
+      const {lesson, resourceKey } = existingResource;
+      setNewResource({...content[lesson].resources[resourceKey],lesson:currLesson});
+    }else{
+      setNewResource(initResource);
+    }
+
+  },[existingResource])
 
 	return (
 		<Flex justify="center" p={4}>
