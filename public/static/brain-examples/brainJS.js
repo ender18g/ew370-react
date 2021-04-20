@@ -92,9 +92,10 @@ const populateTrainingDiv = (data) => {
 	document.querySelectorAll('.remove_icon').forEach((item) => {
 		item.addEventListener('click', (event) => {
 			i = item.getAttribute('commentID');
-			if (hashCode(newInput.value) === 1395200157) {
-				jodelRef.child(i).remove();
-			}
+			// if (hashCode(newInput.value) === 1395200157) {
+			// 	jodelRef.child(i).remove();
+			// }
+			jodelRef.child(i).remove();
 		});
 	});
 	//add a listener that will allow you to move comment to the test input
@@ -124,10 +125,10 @@ const trainData = () => {
 		errorThresh: 0.04, // the acceptable error percentage from training data --> number between 0 and 1
 		log: true, // true to use console.log, when a function is supplied it is used --> Either true or a function
 		logPeriod: 20, // iterations between logging out --> number greater than 0
-	  //learningRate: 0.2, // scales with delta to effect training rate --> number between 0 and 1
+		//learningRate: 0.2, // scales with delta to effect training rate --> number between 0 and 1
 		//momentum: 0.05, // scales with next layer's change value --> number between 0 and 1
 		callback: function(stats) {
-		counter.innerText = `${stats}`;
+			counter.innerText = `${stats}`;
 		},
 		callbackPeriod: 20 // the number of iterations through the training data between callback calls --> number greater than 0
 		//timeout: 15000 // the max number of milliseconds to train for --> number greater than 0
@@ -141,8 +142,8 @@ const trainData = () => {
 	JSONTextArea.innerText = '';
 	JSONTextArea.innerText = JSON.stringify(net.toJSON());
 	setTimeout(() => {
-    populateTrainingDiv(recentDataObj);
-    counter.innerText = 'Training Complete!';
+		populateTrainingDiv(recentDataObj);
+		counter.innerText = 'Training Complete!';
 	}, 500);
 };
 
