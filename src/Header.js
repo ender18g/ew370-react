@@ -36,7 +36,7 @@ const Header = (props) => {
 					/>
 				)}
 				<Heading fontWeight="300" textAlign="right" letterSpacing=".3em" color="white" size="md">
-					EW482X
+					EW370
 				</Heading>
 			</Flex>
 		</Flex>
