@@ -41,16 +41,16 @@
           <label for="desiredAltSlider">Desired Altitude:</label>
           <h4><strong id='desiredAltText'>3000</strong>
             <input id='desiredAltSlider' type="range" min='0' max='5000' step='100' value='3000'></h4>
-          <label for="controllerEqn">Controller Equation:</label>
+          <label for="controllerEqn">Controller Gains:</label>
           <!-- <input class="w-50" type="text" id="controllerEqn" value='55+(.1*(y-s[0])+.1*(s[1]-s[0])+.1*e)'> -->
           <div style="border: 2px solid grey; border-radius: 5px;"
             class="p-3 input-group d-flex justify-content-between mb-3">
             <div class="d-none">Neutral Collective Setting:<input style="width:60px;" class="mx-2" type="text" value="50"
                 id="throttle-gain" /></div>
-            <div>Kp<input style="width:60px;" class="mx-2" type="text" value="0"
+            <div>Kp (proportional) <input style="width:60px;" class="mx-2" type="text" value="0"
                 id="proportional-gain" /></div>
-            <div>Ki<input style="width:60px;" class="mx-2" type="text" value="0" id="integral-gain" /></div>
-            <div>Kd<input style="width:60px;" class="mx-2" type="text" value="0" id="derivative-gain" />
+            <div>Ki (integral)<input style="width:60px;" class="mx-2" type="text" value="0" id="integral-gain" /></div>
+            <div>Kd (derivative)<input style="width:60px;" class="mx-2" type="text" value="0" id="derivative-gain" />
             </div>
 
           </div>
@@ -58,7 +58,7 @@
               OFF</button></h5>
         </div>
 
-        <div id='directionsPanel' class="mx-auto my-3 p-5 bg-light shadow-lg rounded">
+        <div id='directionsPanel' class=" d-none mx-auto my-3 p-5 bg-light shadow-lg rounded">
 
           <h3>Welcome to the Autopilot Simulator!</h3>
           <p>To get started, use the following steps:</p>
@@ -70,7 +70,7 @@
             <li>To see a plot of your controller's reponse, click <strong>Create Plot</strong></li>
           </ul>
           <div class="text-center">
-            <button id='hideDirBtn' class="mx-auto btn btn-primary shadow-lg">Hide Directions</button>
+            <button class="hideDirBtn mx-auto btn btn-primary shadow-lg">Hide Directions</button>
           </div>
         </div>
         <div class="h-75 d-none shadow-lg" id="plotPanel">
@@ -102,8 +102,15 @@
 
       </div>
     </div>
+    <div class="d-flex justify-content-center">
+      <div>
+      <button class="hideDirBtn mx-auto btn btn-primary shadow-lg">Show Directions</button>
+      </div>
+    </div>
+    <div class="d-flex justify-content-left">
+      <div>Created by Allan Elsberry</div>
+    </div>
   </div>
-
 
 
 </body>
