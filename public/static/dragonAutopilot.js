@@ -1,11 +1,12 @@
-// a bunch of helper functions for clicking and getting values.
+// https://github.com/ElvinC/Dragon-docker/blob/master/dragon_dock.js
+// Controller and control panel modifications by Allan Elsberry
 
 function trigger_button(keyCode) {
-	document.dispatchEvent(new KeyboardEvent("keydown", {which: keyCode, keyCode: keyCode}));
+	document.dispatchEvent(new KeyboardEvent('keydown', { which: keyCode, keyCode: keyCode }));
 
 	setTimeout(function() {
-		document.dispatchEvent(new KeyboardEvent("keyup", {which: keyCode, keyCode: keyCode}));
-	}, 0.5)
+		document.dispatchEvent(new KeyboardEvent('keyup', { which: keyCode, keyCode: keyCode }));
+	}, 0.5);
 }
 
 function pitch_up() {
@@ -69,102 +70,102 @@ function translate_backward() {
 }
 
 function getPitchRate() {
-	return parseFloat($("#pitch .rate").innerText);
+	return parseFloat($('#pitch .rate').innerText);
 }
 
 function getYawRate() {
-	return parseFloat($("#yaw .rate").innerText);
+	return parseFloat($('#yaw .rate').innerText);
 }
 
 function getRollRate() {
-	return parseFloat($("#roll .rate").innerText);
+	return parseFloat($('#roll .rate').innerText);
 }
 
 function getPitch() {
-	return parseFloat($("#pitch .error").innerText);
+	return parseFloat($('#pitch .error').innerText);
 }
 
 function getYaw() {
-	return parseFloat($("#yaw .error").innerText);
+	return parseFloat($('#yaw .error').innerText);
 }
 
 function getRoll() {
-	return parseFloat($("#roll .error").innerText);;
+	return parseFloat($('#roll .error').innerText);
 }
 
 // get position
 function getPos() {
-	var x = parseFloat($("#x-range > div").innerText);
-	var y = parseFloat($("#y-range > div").innerText);
-	var z = parseFloat($("#z-range > div").innerText);
-	return new THREE.Vector3(x,y,z);
+	var x = parseFloat($('#x-range > div').innerText);
+	var y = parseFloat($('#y-range > div').innerText);
+	var z = parseFloat($('#z-range > div').innerText);
+	return new THREE.Vector3(x, y, z);
 }
 
 function getRate() {
-	return parseFloat($("#rate > div.rate").innerText);
+	return parseFloat($('#rate > div.rate').innerText);
 }
 
 function randomPos() {
 	// randomizes the current position and velocity
-	rx=(Math.random()-0.5) * 100;ry=(Math.random()-0.5) * 100;rz=(Math.random()-0.5) * 100;
-	rateRotationX=Math.round(rx);
-	targetRotationX=Math.round(rx)/2*toRAD;
-	rateRotationY=Math.round(ry);
-	targetRotationY=Math.round(ry)/2*toRAD;
-	rateRotationZ=Math.round(rz);
-	targetRotationZ=Math.round(rz)/2*toRAD;
-	camera.position.x = (Math.random()-0.5) * 150;
-	camera.position.y = (Math.random()-0.5) * 100;
-	camera.position.x = (Math.random()-0.5) * 100;
-	camera.position.z = (Math.random()-0.5) * 70;
-	motionVector.x = (Math.random()-0.5)*0.1;
-	motionVector.y = (Math.random()-0.5)*0.1;
-	motionVector.z = (Math.random()-0.5)*0.1
+	rx = (Math.random() - 0.5) * 100;
+	ry = (Math.random() - 0.5) * 100;
+	rz = (Math.random() - 0.5) * 100;
+	rateRotationX = Math.round(rx);
+	targetRotationX = Math.round(rx) / 2 * toRAD;
+	rateRotationY = Math.round(ry);
+	targetRotationY = Math.round(ry) / 2 * toRAD;
+	rateRotationZ = Math.round(rz);
+	targetRotationZ = Math.round(rz) / 2 * toRAD;
+	camera.position.x = (Math.random() - 0.5) * 150;
+	camera.position.y = (Math.random() - 0.5) * 100;
+	camera.position.x = (Math.random() - 0.5) * 100;
+	camera.position.z = (Math.random() - 0.5) * 70;
+	motionVector.x = (Math.random() - 0.5) * 0.1;
+	motionVector.y = (Math.random() - 0.5) * 0.1;
+	motionVector.z = (Math.random() - 0.5) * 0.1;
 }
 
 var autoEnabled = false;
 
 function toggleAuto() {
-	autoEnabled = ! autoEnabled;
-	$("#auto-toggle").innerText = autoEnabled ? "DISABLE AUTOPILOT":"ENABLE AUTOPILOT";
- rollArr=new Array(100).fill(0);
- pitchArr=new Array(100).fill(0);
- yawArr=new Array(100).fill(0);
- clearInterval(timerID);
- time=0;
- timerID = setInterval(()=>{
-	time+=1;
-	document.querySelector("#dispTimer").innerText=time;
- },1000)
-
+	autoEnabled = !autoEnabled;
+	$('#auto-toggle').innerText = autoEnabled ? 'DISABLE AUTOPILOT' : 'ENABLE AUTOPILOT';
+	rollArr = new Array(100).fill(0);
+	pitchArr = new Array(100).fill(0);
+	yawArr = new Array(100).fill(0);
+	clearInterval(timerID);
+	time = 0;
+	timerID = setInterval(() => {
+		time += 1;
+		document.querySelector('#dispTimer').innerText = time;
+	}, 1000);
 }
 
+let Kp = 0;
+let Ki = 0;
+let Kd = 0;
 
-
-let Kp=0;
-let Ki=0;
-let Kd=0;
-
-const setGain= (k,val)=>{
-    if (k==='p'){
-    	Kp+=val;
-    	document.querySelector("#Kp").value=Kp;
-    	document.querySelector("#KpDisp").innerText=Kp.toFixed(3);
-    }
-        if (k==='i'){
-    	Ki+=val;
-    	document.querySelector("#Ki").value=Ki;
-    	document.querySelector("#KiDisp").innerText=Ki.toFixed(3);
-    }
-        if (k==='d'){
-    	Kd+=val;
-    	document.querySelector("#Kd").value=Kd;
-    	document.querySelector("#KdDisp").innerText=Kd.toFixed(3);
-    }
-
-}
+const setGain = (k, val) => {
+	if (k === 'p') {
+		Kp += val;
+		document.querySelector('#Kp').value = Kp;
+		document.querySelector('#KpDisp').innerText = Kp.toFixed(3);
+	}
+	if (k === 'i') {
+		Ki += val;
+		document.querySelector('#Ki').value = Ki;
+		document.querySelector('#KiDisp').innerText = Ki.toFixed(3);
+	}
+	if (k === 'd') {
+		Kd += val;
+		document.querySelector('#Kd').value = Kd;
+		document.querySelector('#KdDisp').innerText = Kd.toFixed(3);
+	}
+};
 // quick and dirty control button injection
-document.getElementById("options").insertAdjacentHTML('beforeend', `<div style="position: fixed;left: 50%;margin-left: -215px;top:0px">
+document.getElementById('options').insertAdjacentHTML(
+	'beforeend',
+	`<div style="position: fixed;left: 50%;margin-left: -215px;top:0px">
     <div onclick="toggleAuto()" id="auto-toggle" class="message-button" style="display: inline-block;text-align: center;margin: 15px;">ENABLE AUTOPILOT</div>
     <div onclick="randomPos()" class="message-button" style="display: inline-block;text-align: center;margin: 15px;">RANDOM POSITION</div>
    </div> 
@@ -204,12 +205,11 @@ document.getElementById("options").insertAdjacentHTML('beforeend', `<div style="
 
     <div>
 
-`);
+`
+);
 
-
-let timerID=0;
+let timerID = 0;
 let time = 0;
-
 
 // The script itself:
 
@@ -222,49 +222,45 @@ var rotD = Kd;
 // Y and Z translation:
 var transP = Kp;
 var transI = Ki;
-var transD = Kd
+var transD = Kd;
 
 // X translation. Axis towards the station.
 var transXP = Kp; // proportional. Higher values: more thrust
 var transI = Ki;
 var transXD = Kd; // derivative. Higher values: resists motion/less overshoot
 
-var rollArr=new Array(100).fill(0);
-var pitchArr=new Array(100).fill(0);
-var yawArr=new Array(100).fill(0);
+var rollArr = new Array(100).fill(0);
+var pitchArr = new Array(100).fill(0);
+var yawArr = new Array(100).fill(0);
 
-
-const initGains = ()=>{
+const initGains = () => {
 	rotP = Kp;
-	rotI = Ki/10;
+	rotI = Ki / 10;
 	rotD = Kd;
 
 	// Y and Z translation:
 	transP = Kp;
 	transI = Ki;
-	transD = Kd
+	transD = Kd;
 
 	// X translation. Axis towards the station.
-	transXP = Kp/3; // proportional. Higher values: more thrust
+	transXP = Kp / 3; // proportional. Higher values: more thrust
 	transI = Ki;
-	transXD = Kd*3;
-}
-
-
+	transXD = Kd * 3;
+};
 
 // angular velocity limit
 var maxAngVel = 2.5;
 
-
 // estimated velocity vector
-var vel = new THREE.Vector3(0,0,0);
+var vel = new THREE.Vector3(0, 0, 0);
 // last position
 var lastPos = getPos();
 
 // "Duty cycle" of the translation thrusters... idk.
-var weirdDutyCycle = new THREE.Vector3(0,0,0);
+var weirdDutyCycle = new THREE.Vector3(0, 0, 0);
 
-var angleDt = 0.1;  // deltaTime in seconds
+var angleDt = 0.1; // deltaTime in seconds
 var velDt = 1; // delay between velocity update
 
 var loopCounter = 0;
@@ -274,7 +270,6 @@ var velInterval = Math.round(velDt / angleDt);
 setInterval(controlLoop, angleDt * 1000);
 
 function controlLoop() {
-
 	initGains();
 
 	if (!autoEnabled) {
@@ -286,77 +281,68 @@ function controlLoop() {
 	// PD loop
 	var pitchRate = getPitchRate();
 	var pitch = getPitch();
-	
-	pitchArr.pop();
-    pitchArr.unshift(pitch);
-    const pitchErr=pitchArr.reduce((acc,cur)=>{
-    	return acc+=cur;
-    });
 
-	var pitchSetpoint = Math.round((pitch * rotP - pitchRate * rotD+ pitchErr*rotI) * 10) / 10;
+	pitchArr.pop();
+	pitchArr.unshift(pitch);
+	const pitchErr = pitchArr.reduce((acc, cur) => {
+		return (acc += cur);
+	});
+
+	var pitchSetpoint = Math.round((pitch * rotP - pitchRate * rotD + pitchErr * rotI) * 10) / 10;
 	if (pitchRate < pitchSetpoint && pitchRate < maxAngVel) {
 		pitch_down();
-	}
-	else if (pitchRate > pitchSetpoint && pitchRate > -maxAngVel) {
+	} else if (pitchRate > pitchSetpoint && pitchRate > -maxAngVel) {
 		pitch_up();
 	}
 
 	var yawRate = getYawRate();
 	var yaw = getYaw();
 
-    yawArr.pop();
-    yawArr.unshift(yaw);
-    const yawErr=yawArr.reduce((acc,cur)=>{
-    	return acc+=cur;
-    });
+	yawArr.pop();
+	yawArr.unshift(yaw);
+	const yawErr = yawArr.reduce((acc, cur) => {
+		return (acc += cur);
+	});
 
- 
-
-	var yawSetpoint = Math.round((yaw * rotP - yawRate * rotD+ yawErr*rotI) * 10) / 10;
+	var yawSetpoint = Math.round((yaw * rotP - yawRate * rotD + yawErr * rotI) * 10) / 10;
 
 	if (yawRate < yawSetpoint && yawRate < maxAngVel) {
 		yaw_right();
-	}
-	else if (yawRate > yawSetpoint && yawRate > -maxAngVel) {
+	} else if (yawRate > yawSetpoint && yawRate > -maxAngVel) {
 		yaw_left();
 	}
-
 
 	var rollRate = getRollRate();
 	var roll = getRoll();
 
-	    rollArr.pop();
-    rollArr.unshift(roll);
-    const rollErr=rollArr.reduce((acc,cur)=>{
-    	return acc+=cur;
-    });
+	rollArr.pop();
+	rollArr.unshift(roll);
+	const rollErr = rollArr.reduce((acc, cur) => {
+		return (acc += cur);
+	});
 
+	// only correct
 
-	// only correct 
-
-	var rollSetpoint = Math.round((roll * rotP - rollRate * rotD+rollErr*rotI) * 10) / 10;
+	var rollSetpoint = Math.round((roll * rotP - rollRate * rotD + rollErr * rotI) * 10) / 10;
 
 	if (rollRate < rollSetpoint && rollRate < maxAngVel) {
 		roll_right();
-	}
-	else if (rollRate > rollSetpoint && rollRate > -maxAngVel) {
+	} else if (rollRate > rollSetpoint && rollRate > -maxAngVel) {
 		roll_left();
 	}
 
-
-		//log rotation rate setpoints
-// 		console.log({
-// 			p: pitchErr,
-// 			y: yawErr,
-// 			r: rollErr,
-// 			p: pitchArr.length
-// 		});
+	//log rotation rate setpoints
+	// 		console.log({
+	// 			p: pitchErr,
+	// 			y: yawErr,
+	// 			r: rollErr,
+	// 			p: pitchArr.length
+	// 		});
 
 	// translate only if angle is small
-	if (Math.abs(pitch) + Math.abs(yaw) + Math.abs(roll) <= 3*ERROR_TOL) {
+	if (Math.abs(pitch) + Math.abs(yaw) + Math.abs(roll) <= 3 * ERROR_TOL) {
 		translationCorrection();
 	}
-
 }
 
 function translationCorrection() {
@@ -367,7 +353,7 @@ function translationCorrection() {
 		vel = newPos.clone().sub(lastPos).divideScalar(velDt);
 		lastPos = newPos.clone();
 	}
-	
+
 	// use displayed rate if only moving in x direction
 	if (vel.x * vel.y === 0) {
 		vel.x = getRate();
@@ -379,37 +365,31 @@ function translationCorrection() {
 
 	//console.log(weirdDutyCycle);
 
-
-	if (loopCounter % velInterval >= velInterval * Math.abs(weirdDutyCycle.x) || Math.abs(newPos.y) + Math.abs(newPos.z) > 45) {
+	if (
+		loopCounter % velInterval >= velInterval * Math.abs(weirdDutyCycle.x) ||
+		Math.abs(newPos.y) + Math.abs(newPos.z) > 45
+	) {
 		// "duty cycle" is off, do nothing
-	}
-	else if (weirdDutyCycle.x > 0) {
+	} else if (weirdDutyCycle.x > 0) {
 		translate_forward();
-	}
-	else if (weirdDutyCycle.x < -0.1) { // don't change if moving slowly forwards
+	} else if (weirdDutyCycle.x < -0.1) {
+		// don't change if moving slowly forwards
 		translate_backward();
 	}
 
-
 	if (loopCounter % velInterval >= velInterval * Math.abs(weirdDutyCycle.y)) {
 		// "duty cycle" is off, do nothing
-	}
-	else if (weirdDutyCycle.y > 0) {
+	} else if (weirdDutyCycle.y > 0) {
 		translate_left();
-	}
-	else if (weirdDutyCycle.y < 0) {
+	} else if (weirdDutyCycle.y < 0) {
 		translate_right();
 	}
-	
 
 	if (loopCounter % velInterval >= velInterval * Math.abs(weirdDutyCycle.z)) {
-	// "duty cycle" is off, do nothing
-	}
-	else if (weirdDutyCycle.z > 0) {
+		// "duty cycle" is off, do nothing
+	} else if (weirdDutyCycle.z > 0) {
 		translate_down();
-	}
-	else if (weirdDutyCycle.z < 0) {
+	} else if (weirdDutyCycle.z < 0) {
 		translate_up();
 	}
-	
 }
