@@ -24,7 +24,7 @@ const hideDirBtn = document.querySelector('.hideDirBtn');
 // const width = skyPanel.clientWidth;
 // const height = skyPanel.clientHeight;
 const width = 500;
-const height = 800;
+const height = 600;
 
 const maxAlt = 5000;
 
