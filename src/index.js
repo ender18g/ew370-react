@@ -21,11 +21,11 @@ const firebaseConfig = {
 ReactDOM.render(
 	<React.StrictMode>
 		<ChakraProvider>
-			<BrowserRouter>
-				<FirebaseAppProvider firebaseConfig={firebaseConfig}>
+			<FirebaseAppProvider firebaseConfig={firebaseConfig}>
+				<BrowserRouter>
 					<App />
-				</FirebaseAppProvider>
-			</BrowserRouter>
+				</BrowserRouter>
+			</FirebaseAppProvider>
 		</ChakraProvider>
 	</React.StrictMode>,
 	document.getElementById('root')

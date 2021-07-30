@@ -3,6 +3,7 @@ import { Heading, Flex, Image, Link, Box, IconButton } from '@chakra-ui/react';
 import './Header.css';
 import logo from './WRCLogo.png';
 import { EditIcon } from '@chakra-ui/icons';
+import { NavLink } from 'react-router-dom';
 
 const Header = (props) => {
 	const { toggleEdit } = props;
@@ -13,9 +14,9 @@ const Header = (props) => {
 	return (
 		<Flex boxShadow="md" justify="space-between" align="center" bg="blue.700" paddingX={4} paddingY={2}>
 			<Flex justify="left" align="center">
-				<Link href="/jodel" style={{ textDecoration: 'none' }}>
+				<NavLink to="/jodel" style={{ textDecoration: 'none' }}>
 					<Image className="nav-logo" height="50px" src={logo} />
-				</Link>
+				</NavLink>
 				<Link
 					href="https://www.usna.edu/Blackboard/simple.php"
 					color="white"
@@ -37,11 +38,11 @@ const Header = (props) => {
 						colorScheme="teal"
 					/>
 				)}
-				<Link href="/" style={{ textDecoration: 'none' }}>
+				<NavLink to="/" style={{ textDecoration: 'none' }}>
 					<Heading fontWeight="300" textAlign="right" letterSpacing=".3em" color="white" size="md">
 						EW370
 					</Heading>
-				</Link>
+				</NavLink>
 			</Flex>
 		</Flex>
 	);
