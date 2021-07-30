@@ -3,8 +3,9 @@ import { Box } from '@chakra-ui/react';
 import Header from './Header';
 import Home from './Home';
 import { useState } from 'react';
-import {Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import ComputerVision from './ComputerVision';
+import MobileJodel from './MobileJodel';
 
 function App() {
 	const [ editOn, setEditOn ] = useState(false);
@@ -14,12 +15,12 @@ function App() {
 	return (
 		<Box className="App">
 			<Header toggleEdit={toggleEdit} />
-      <Switch>
-        <Route exact path='/' render={()=><Home editOn={editOn} toggleEdit={toggleEdit} />}/>
-                <Route exact path='/cv' render={()=><ComputerVision/>}/>
-             <Route exact path='/edit' render={()=><Home editOn={editOn} toggleEdit={toggleEdit} />}/>
-      </Switch>
-
+			<Switch>
+				<Route exact path="/" render={() => <Home editOn={editOn} toggleEdit={toggleEdit} />} />
+				<Route exact path="/cv" render={() => <ComputerVision />} />
+				<Route exact path="/edit" render={() => <Home editOn={editOn} toggleEdit={toggleEdit} />} />
+				<Route exact path="/jodel" render={() => <MobileJodel />} />
+			</Switch>
 		</Box>
 	);
 }
