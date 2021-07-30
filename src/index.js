@@ -5,8 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { FirebaseAppProvider, SuspenseWithPerf } from 'reactfire';
 import { ChakraProvider } from '@chakra-ui/react';
-import {BrowserRouter} from 'react-router-dom';
-
+import { BrowserRouter } from 'react-router-dom';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyDinZuBXMQbPuXTrEdl4DGRVH-EPZdK5ug',
@@ -22,11 +21,11 @@ const firebaseConfig = {
 ReactDOM.render(
 	<React.StrictMode>
 		<ChakraProvider>
-			<FirebaseAppProvider firebaseConfig={firebaseConfig}>
-        <BrowserRouter>
-				<App />
-        </BrowserRouter>
-			</FirebaseAppProvider>
+			<BrowserRouter>
+				<FirebaseAppProvider firebaseConfig={firebaseConfig}>
+					<App />
+				</FirebaseAppProvider>
+			</BrowserRouter>
 		</ChakraProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
