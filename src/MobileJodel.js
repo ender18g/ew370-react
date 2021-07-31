@@ -20,6 +20,10 @@ export default function MobileJodel() {
 		setSubmitted(true);
 	};
 
+	const removeJodel = (k) => {
+		jodelRef.child(k).remove();
+	};
+
 	// useEffect(
 	// 	() => {
 	// 		console.log(input, output);
@@ -66,7 +70,8 @@ export default function MobileJodel() {
 					</Text>
 				</Button>
 			</Box>
-			{submitted && (status === 'loading' ? <Spinner /> : <JodelTable jodels={jodels} />)}
+			{submitted &&
+				(status === 'loading' ? <Spinner /> : <JodelTable jodels={jodels} removeJodel={removeJodel} />)}
 		</Box>
 	);
 }
