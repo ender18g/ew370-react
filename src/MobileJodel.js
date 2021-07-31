@@ -7,7 +7,7 @@ import JodelTable from './JodelTable';
 export default function MobileJodel() {
 	const [ input, setInput ] = useState('');
 	const [ output, setOutput ] = useState('');
-	const [ submitted, setSubmitted ] = useState(false);
+	const [ submitted, setSubmitted ] = useState(true);
 
 	const jodelRef = useDatabase().ref('jodels');
 	const { status, data: jodels } = useDatabaseObjectData(jodelRef);
