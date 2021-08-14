@@ -122,7 +122,7 @@ const trainData = () => {
 	net.train(trainingData, {
 		//   // Defaults values --> expected validation
 		iterations: iterations, // the maximum times to iterate the training data --> number greater than 0
-		errorThresh: 0.07, // the acceptable error percentage from training data --> number between 0 and 1
+		errorThresh: 0.06, // the acceptable error percentage from training data --> number between 0 and 1
 		log: true, // true to use console.log, when a function is supplied it is used --> Either true or a function
 		logPeriod: 20, // iterations between logging out --> number greater than 0
 		//learningRate: 0.2, // scales with delta to effect training rate --> number between 0 and 1
