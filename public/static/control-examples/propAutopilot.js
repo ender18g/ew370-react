@@ -24,7 +24,7 @@ const hideDirBtn = document.querySelector('.hideDirBtn');
 // const width = skyPanel.clientWidth;
 // const height = skyPanel.clientHeight;
 const width = 500;
-const height = 600;
+const height = 800;
 
 const maxAlt = 5000;
 
@@ -122,7 +122,7 @@ let helo = {
 			sumErr = sumErr + (y - currentAlt);
 			//value='55+(.1*(y-s[0])+.1*(s[1]-s[0])+.1*e)
 			//get gain values
-			let Kt = 35;
+			let Kt = 0;
 			let Kp = parseFloat(document.querySelector('#proportional-gain').value);
 			let Ki = parseFloat(document.querySelector('#integral-gain').value);
 			let Kd = parseFloat(document.querySelector('#derivative-gain').value);
