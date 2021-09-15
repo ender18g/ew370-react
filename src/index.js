@@ -22,7 +22,7 @@ ReactDOM.render(
 	<React.StrictMode>
 		<ChakraProvider>
 			<FirebaseAppProvider firebaseConfig={firebaseConfig}>
-				<BrowserRouter>
+				<BrowserRouter basename="/Users/wrc/elsberry">
 					<App />
 				</BrowserRouter>
 			</FirebaseAppProvider>
