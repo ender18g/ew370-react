@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex, Box, Spinner, Text, Heading, Button, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react';
-import { useDatabase, useDatabaseListData, useDatabaseObjectData, useUser } from 'reactfire';
-import { useState, useEffect } from 'react';
+import { useDatabase, useDatabaseObjectData } from 'reactfire';
+import { useState, useCallback } from 'react';
 import JodelTable from './JodelTable';
 
 export default function MobileJodel() {
@@ -14,7 +14,7 @@ export default function MobileJodel() {
 
 	const addJodel = () => {
 		const newRef = jodelRef.push();
-		newRef.set({ input: input, output: output });
+		newRef.set({ input: input, output: output, happyVotes: 0, sadVotes: 0 });
 		setInput('');
 		setOutput('');
 		setSubmitted(true);
@@ -22,6 +22,11 @@ export default function MobileJodel() {
 
 	const removeJodel = (k) => {
 		jodelRef.child(k).remove();
+	};
+
+	const voteJodel = (k, voteTerm, val) => {
+		console.log(k, voteTerm, val);
+		jodelRef.child(k).update({ [voteTerm]: val });
 	};
 
 	return (
@@ -63,7 +68,11 @@ export default function MobileJodel() {
 				</Button>
 			</Box>
 			{submitted &&
-				(status === 'loading' ? <Spinner /> : <JodelTable jodels={jodels} removeJodel={removeJodel} />)}
+				(status === 'loading' ? (
+					<Spinner />
+				) : (
+					<JodelTable jodels={jodels} removeJodel={removeJodel} voteJodel={voteJodel} />
+				))}
 		</Box>
 	);
 }
