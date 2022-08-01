@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { FirebaseAppProvider, SuspenseWithPerf } from 'reactfire';
+import { FirebaseAppProvider } from 'reactfire';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -22,7 +22,8 @@ ReactDOM.render(
 	<React.StrictMode>
 		<ChakraProvider>
 			<FirebaseAppProvider firebaseConfig={firebaseConfig}>
-				<BrowserRouter basename="/Users/wrc/elsberry">
+				{/* basename="/Users/wrc/elsberry" */}
+				<BrowserRouter>
 					<App />
 				</BrowserRouter>
 			</FirebaseAppProvider>
