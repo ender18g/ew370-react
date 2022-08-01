@@ -28,7 +28,7 @@ export default function MobileJodel(props) {
 					<List maxW={'500px'} spacing="3">
 						{Object.keys(jodels).reverse().map((k, i) => {
 							if (!jodels[k]['input']) return '';
-							if (jodels[k]['input'].includes(searchTerm)) {
+							if (jodels[k]['input'].toLowerCase().includes(searchTerm.toLowerCase())) {
 								return (
 									<JodelLine
 										key={k}

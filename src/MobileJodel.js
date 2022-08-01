@@ -24,14 +24,6 @@ export default function MobileJodel() {
 		jodelRef.child(k).remove();
 	};
 
-	// useEffect(
-	// 	() => {
-	// 		console.log(input, output);
-	// 		console.log(jodels);
-	// 	},
-	// 	[ input, output ]
-	// );
-
 	return (
 		<Box>
 			<Box bg="gray.50" p="2" borderRadius="md" my="2" mx={{ base: '5', md: '60' }} justifyContent="center">
