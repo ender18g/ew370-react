@@ -5,7 +5,7 @@ import './Menu.css';
 export default function Menu(props) {
 	const { content, currLesson, setCurrLesson } = props;
 	return (
-		<Box borderRadius="md" border="1px" borderColor="gray.200" boxShadow="md">
+		<Box borderRadius="md" border="0px" borderColor="gray.200" boxShadow="md">
 			{Object.keys(content).map((key, index) => {
 				if (isNaN(key)) return <Box key="9999" />;
 				return (
