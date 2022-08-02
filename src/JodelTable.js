@@ -20,63 +20,68 @@ export default function MobileJodel(props) {
 						}}
 					/>
 					<List maxW={'500px'} spacing="3">
-						{Object.keys(jodels).reverse().map((k, i) => {
-							if (!jodels[k]['input']) return '';
-							if (jodels[k]['input'].toLowerCase().includes(searchTerm.toLowerCase())) {
-								return (
-									<Flex justify={'center'} align="center">
-										<JodelLine
-											key={k}
-											jodel={jodels[k]}
-											removeJodel={() => {
-												removeJodel(k);
-											}}
-											voteJodel={voteJodel}
-										/>
-										<Box>
-											<Flex>
-												<Text
-													onClick={() => {
-														console.log('happy vote');
-														if ('happyVotes' in jodels[k]) {
-															voteJodel(k, 'happyVotes', jodels[k]['happyVotes'] + 1);
-														} else {
-															voteJodel(k, 'happyVotes', 1);
-														}
-													}}
-													mx="3"
-													fontSize={'xl'}
-												>
-													😀
-												</Text>
-												<Text
-													onClick={() => {
-														console.log('sad vote');
-														if ('sadVotes' in jodels[k]) {
-															voteJodel(k, 'sadVotes', jodels[k]['sadVotes'] + 1);
-														} else {
-															voteJodel(k, 'sadVotes', 1);
-														}
-													}}
-													mx="3"
-													fontSize={'xl'}
-												>
-													😔
-												</Text>
-											</Flex>
-											<Flex justify="space-around">
-												<Text fontSize={'xs'} fontWeight="600">
-													{jodels[k]['happyVotes']}
-												</Text>
-												<Text fontSize={'xs'} fontWeight="600">
-													{jodels[k]['sadVotes']}
-												</Text>
-											</Flex>
-										</Box>
-									</Flex>
-								);
-							}
-						})}
+						{Object.keys(jodels)
+							.reverse()
+							.filter(
+								(k) =>
+									jodels[k].hasOwnProperty('input') &&
+									jodels[k]['input'].toLowerCase().includes(searchTerm.toLowerCase())
+							)
+							.map((k, i) => {
+								if (i < 35) {
+									return (
+										<Flex key={k} justify={'center'} align="center">
+											<JodelLine
+												jodel={jodels[k]}
+												removeJodel={() => {
+													removeJodel(k);
+												}}
+												voteJodel={voteJodel}
+											/>
+											<Box>
+												<Flex>
+													<Text
+														onClick={() => {
+															console.log('happy vote');
+															if ('happyVotes' in jodels[k]) {
+																voteJodel(k, 'happyVotes', jodels[k]['happyVotes'] + 1);
+															} else {
+																voteJodel(k, 'happyVotes', 1);
+															}
+														}}
+														mx="3"
+														fontSize={'xl'}
+													>
+														😀
+													</Text>
+													<Text
+														onClick={() => {
+															console.log('sad vote');
+															if ('sadVotes' in jodels[k]) {
+																voteJodel(k, 'sadVotes', jodels[k]['sadVotes'] + 1);
+															} else {
+																voteJodel(k, 'sadVotes', 1);
+															}
+														}}
+														mx="3"
+														fontSize={'xl'}
+													>
+														😔
+													</Text>
+												</Flex>
+												<Flex justify="space-around">
+													<Text fontSize={'xs'} fontWeight="600">
+														{jodels[k]['happyVotes']}
+													</Text>
+													<Text fontSize={'xs'} fontWeight="600">
+														{jodels[k]['sadVotes']}
+													</Text>
+												</Flex>
+											</Box>
+										</Flex>
+									);
+								}
+							})}
 					</List>
 				</Box>
 			</Box>
