@@ -1,24 +1,68 @@
 import React from 'react';
-import { Flex, Box, Input, Text, Button, List, ListItem, VStack } from '@chakra-ui/react';
+import {
+	Flex,
+	Box,
+	Input,
+	Text,
+	Button,
+	List,
+	ListItem,
+	VStack,
+	NumberInput,
+	NumberInputField,
+	NumberIncrementStepper,
+	NumberDecrementStepper,
+	NumberInputStepper,
+	FormControl,
+	FormLabel,
+	Heading
+} from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { DeleteIcon } from '@chakra-ui/icons';
 
 export default function MobileJodel(props) {
 	const { jodels, removeJodel, voteJodel } = props;
 	const [ searchTerm, setsearchTerm ] = useState('');
+	const [ numDisplayed, setNumDisplayed ] = useState(50);
+	const format = (val) => val;
+	const parse = (val) => val.replace(/^\$/, '');
 
 	return (
 		<Flex justifyContent={'center'}>
-			<VStack p="3" my="4">
-				<Input
-					m="2"
-					maxW="400px"
-					placeholder="Filter by keyword"
-					onChange={(e) => {
-						setsearchTerm(e.target.value);
-					}}
-				/>
-				<List maxW={'500px'} spacing="3">
+			<VStack p="3" my="2">
+				<Heading mb="3" size="md">
+					Total Jodels: {Object.keys(jodels).length}
+				</Heading>
+				<Flex align={'flex-end'}>
+					<FormControl>
+						<FormLabel>Filter by keyword</FormLabel>
+						<Input
+							maxW="400px"
+							placeholder="Filter by keyword"
+							onChange={(e) => {
+								setsearchTerm(e.target.value);
+							}}
+						/>
+					</FormControl>
+					<FormControl>
+						<FormLabel>Number Displayed</FormLabel>
+						<NumberInput
+							onChange={(valString) => setNumDisplayed(parse(valString))}
+							value={format(numDisplayed)}
+							defaultValue={50}
+							max={1000}
+							min={10}
+							step={10}
+						>
+							<NumberInputField />
+							<NumberInputStepper>
+								<NumberIncrementStepper />
+								<NumberDecrementStepper />
+							</NumberInputStepper>
+						</NumberInput>
+					</FormControl>
+				</Flex>
+				<List maxW={'500px'} spacing="2">
 					{Object.keys(jodels)
 						.reverse()
 						.filter(
@@ -26,60 +70,61 @@ export default function MobileJodel(props) {
 								jodels[k].hasOwnProperty('input') &&
 								jodels[k]['input'].toLowerCase().includes(searchTerm.toLowerCase())
 						)
+						.slice(0, numDisplayed)
 						.map((k, i) => {
-							if (i < 35) {
-								return (
-									<Flex key={k} justify={'center'} align="center">
-										<JodelLine
-											jodel={jodels[k]}
-											removeJodel={() => {
-												removeJodel(k);
-											}}
-											voteJodel={voteJodel}
-										/>
-										<Box>
-											<Flex>
-												<Text
-													onClick={() => {
-														console.log('happy vote');
-														if ('happyVotes' in jodels[k]) {
-															voteJodel(k, 'happyVotes', jodels[k]['happyVotes'] + 1);
-														} else {
-															voteJodel(k, 'happyVotes', 1);
-														}
-													}}
-													mx="3"
-													fontSize={'xl'}
-												>
-													😀
-												</Text>
-												<Text
-													onClick={() => {
-														console.log('sad vote');
-														if ('sadVotes' in jodels[k]) {
-															voteJodel(k, 'sadVotes', jodels[k]['sadVotes'] + 1);
-														} else {
-															voteJodel(k, 'sadVotes', 1);
-														}
-													}}
-													mx="3"
-													fontSize={'xl'}
-												>
-													😔
-												</Text>
-											</Flex>
-											<Flex justify="space-around">
-												<Text fontSize={'xs'} fontWeight="600">
-													{jodels[k]['happyVotes']}
-												</Text>
-												<Text fontSize={'xs'} fontWeight="600">
-													{jodels[k]['sadVotes']}
-												</Text>
-											</Flex>
-										</Box>
-									</Flex>
-								);
-							}
+							return (
+								<Flex key={k} justify={'center'} align="center">
+									<JodelLine
+										jodel={jodels[k]}
+										removeJodel={() => {
+											removeJodel(k);
+										}}
+										voteJodel={voteJodel}
+									/>
+									<Box>
+										<Flex>
+											<Text
+												onClick={() => {
+													console.log('happy vote');
+													if ('happyVotes' in jodels[k]) {
+														voteJodel(k, 'happyVotes', jodels[k]['happyVotes'] + 1);
+													} else {
+														voteJodel(k, 'happyVotes', 1);
+													}
+												}}
+												mx="3"
+												fontSize={'xl'}
+												cursor="pointer"
+											>
+												😀
+											</Text>
+											<Text
+												onClick={() => {
+													console.log('sad vote');
+													if ('sadVotes' in jodels[k]) {
+														voteJodel(k, 'sadVotes', jodels[k]['sadVotes'] + 1);
+													} else {
+														voteJodel(k, 'sadVotes', 1);
+													}
+												}}
+												mx="3"
+												fontSize={'xl'}
+												cursor="pointer"
+											>
+												😔
+											</Text>
+										</Flex>
+										<Flex justify="space-around">
+											<Text fontSize={'xs'} fontWeight="600">
+												{jodels[k]['happyVotes']}
+											</Text>
+											<Text fontSize={'xs'} fontWeight="600">
+												{jodels[k]['sadVotes']}
+											</Text>
+										</Flex>
+									</Box>
+								</Flex>
+							);
 						})}
 				</List>
 			</VStack>
@@ -95,18 +140,15 @@ const JodelLine = (props) => {
 	return (
 		<ListItem
 			p="2"
-			width="400px"
 			bg={jodel['output'] === 'happy' ? 'teal.200' : 'red.200'}
 			borderRadius="md"
-			textColor="gray.700"
-			fontWeight="300"
 			boxShadow="lg"
 			onClick={() => {
 				setShow(!show);
 			}}
 		>
-			<Flex justifyContent="center" alignItems="center">
-				<Text>{jodel['input']}</Text>
+			<Flex minW="400px" minH={'50px'} justifyContent="center" alignItems="center">
+				<Text fontSize="lg">{jodel['input']}</Text>
 			</Flex>
 			{show && (
 				<Flex align={'center'} justifyContent="space-around">
