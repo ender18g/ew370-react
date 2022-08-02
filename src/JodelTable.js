@@ -139,8 +139,8 @@ const JodelLine = (props) => {
 
 	return (
 		<ListItem
-			p="2"
-			bg={jodel['output'] === 'happy' ? 'teal.200' : 'red.200'}
+			p="4"
+			bg={jodel['output'] === 'happy' ? 'teal.300' : 'red.300'}
 			borderRadius="md"
 			boxShadow="lg"
 			onClick={() => {
