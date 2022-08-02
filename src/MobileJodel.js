@@ -1,38 +1,48 @@
 import React from 'react';
 import { Flex, Box, Spinner, Text, Heading, Button, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import { useDatabase, useDatabaseObjectData } from 'reactfire';
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import JodelTable from './JodelTable';
+import { ref, push, set, update, remove } from 'firebase/database';
 
 export default function MobileJodel() {
 	const [ input, setInput ] = useState('');
 	const [ output, setOutput ] = useState('');
 	const [ submitted, setSubmitted ] = useState(true);
 
-	const jodelRef = useDatabase().ref('jodels');
+	const db = useDatabase();
+	const jodelRef = ref(db, 'jodels');
+
 	const { status, data: jodels } = useDatabaseObjectData(jodelRef);
 
 	const addJodel = () => {
-		const newRef = jodelRef.push();
-		newRef.set({ input: input, output: output, happyVotes: 0, sadVotes: 0 });
+		const newRef = push(jodelRef);
+		set(newRef, { input: input, output: output, happyVotes: 0, sadVotes: 0 });
 		setInput('');
 		setOutput('');
 		setSubmitted(true);
 	};
 
 	const removeJodel = (k) => {
-		jodelRef.child(k).remove();
+		remove(ref(db, 'jodels/' + k));
 	};
 
 	const voteJodel = (k, voteTerm, val) => {
 		console.log(k, voteTerm, val);
-		jodelRef.child(k).update({ [voteTerm]: val });
+		update(ref(db, 'jodels/' + k), { [voteTerm]: val });
 	};
 
 	return (
 		<Box>
-			<Box bg="gray.50" p="2" borderRadius="md" my="2" mx={{ base: '5', md: '60' }} justifyContent="center">
-				<Heading letterSpacing=".1em" fontWeight="200" color="teal">
+			<Box
+				p="2"
+				borderRadius="md"
+				my="2"
+				mx={{ base: '5', md: '60' }}
+				justifyContent="center"
+				textAlign={'center'}
+			>
+				<Heading letterSpacing=".1em" fontWeight="200">
 					EW370 Jodel
 				</Heading>
 				<Input

@@ -114,16 +114,17 @@ const EditForm = (props) => {
 							url={newResource.link}
 						/>
 					</Flex>
-
-					<Button
-						colorScheme="teal"
-						onClick={() => {
-							console.log(newResource);
-							saveResource(newResource);
-						}}
-					>
-						Save Resource
-					</Button>
+					<Flex justify={'center'}>
+						<Button
+							colorScheme="teal"
+							onClick={() => {
+								console.log(newResource);
+								saveResource(newResource);
+							}}
+						>
+							Save Resource
+						</Button>
+					</Flex>
 				</form>
 			</Box>
 		</Flex>

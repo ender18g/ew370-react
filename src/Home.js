@@ -1,18 +1,18 @@
 import { Flex, Box, Spinner } from '@chakra-ui/react';
 import Menu from './Menu';
 import LessonPanel from './LessonPanel';
-import 'firebase/database';
+import { ref, set, push, remove } from 'firebase/database';
 import { SuspenseWithPerf, useDatabase, useDatabaseObjectData } from 'reactfire';
 import { useState, useEffect } from 'react';
 import EditForm from './EditForm';
 
 export const Home = (props) => {
 	const { editOn, toggleEdit } = props;
-	const database = useDatabase();
-	const contentRef = database.ref('content');
+	const db = useDatabase();
+	const contentRef = ref(db, 'content');
 	const contentResponse = useDatabaseObjectData(contentRef);
-	const { data: content } = contentResponse;
-  const [existingResource, setExistingResource] = useState(false);
+	const { status, data: content } = contentResponse;
+	const [ existingResource, setExistingResource ] = useState(false);
 	const [ currLesson, setCurrLesson ] = useState(0);
 	useEffect(
 		() => {
@@ -27,26 +27,25 @@ export const Home = (props) => {
 	);
 
 	const saveResource = ({ lesson, title, description, link, image }) => {
-		const newRef = contentRef.child(`${lesson}/resources`).push();
-		newRef.set({ title, description, image, link });
+		console.log('SAVING NEW RESOURCE', image);
+		const newRef = push(ref(db, `content/${lesson}/resources/`));
+		set(newRef, { title, description, image, link });
 		setCurrLesson(lesson);
-		// toggleEdit();
-    setExistingResource(false);
+		setExistingResource(false);
 	};
 
 	const removeResource = (lesson, resourceKey) => {
 		if (!resourceKey) return false;
-		contentRef.child(`${lesson}/resources/${resourceKey}`).remove();
+		remove(ref(db, `content/${lesson}/resources/${resourceKey}`));
 	};
 
-  const editResource = (lesson, resourceKey)=>{
-    if (!resourceKey) return false;
-    setExistingResource({lesson, resourceKey});
-    console.log("edit",existingResource)
+	const editResource = (lesson, resourceKey) => {
+		if (!resourceKey) return false;
+		setExistingResource({ lesson, resourceKey });
+		console.log('edit', existingResource);
+	};
 
-  }
-
-	if (!content)
+	if (status === 'loading')
 		return (
 			<Flex height="100%" justify="center" align="center">
 				<Spinner />
@@ -62,12 +61,19 @@ export const Home = (props) => {
 					<Box minW="300px" w="100%" height="100%">
 						<LessonPanel
 							removeResource={removeResource}
-              editResource={editResource}
+							editResource={editResource}
 							editOn={editOn}
 							content={content}
 							currLesson={currLesson}
 						/>
-						{editOn && <EditForm content={content} currLesson={currLesson} saveResource={saveResource} existingResource={existingResource}/>}
+						{editOn && (
+							<EditForm
+								content={content}
+								currLesson={currLesson}
+								saveResource={saveResource}
+								existingResource={existingResource}
+							/>
+						)}
 					</Box>
 				</Flex>
 			</Box>

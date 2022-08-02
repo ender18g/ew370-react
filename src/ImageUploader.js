@@ -1,30 +1,26 @@
-import 'firebase/storage';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import * as React from 'react';
 import { useState } from 'react';
-import { useStorage, useStorageDownloadURL, useStorageTask } from 'reactfire';
+import { useStorage } from 'reactfire';
 import { Box, Text, Input } from '@chakra-ui/react';
-import { networkInterfaces } from 'os';
 
 const ImageUploader = (props) => {
 	const { setImageURL } = props;
-	const [ ref, setRef ] = useState();
-	const [ uploadTask, setUploadTask ] = useState();
+	const [ imageRef, setImageRef ] = useState();
 	const storage = useStorage();
 
 	const handleChange = (e) => {
 		const file = e.target.files[0];
-		const newRef = storage.ref('images').child(file.name);
-		setRef(newRef);
-		const uploadTask = newRef.put(file);
-		setUploadTask(newRef.put(file));
+		const newRef = ref(storage, 'images/' + file.name);
+		setImageRef(newRef);
+		const uploadTask = uploadBytesResumable(newRef, file);
 
 		uploadTask.then(() => {
 			console.log('upload complete');
-			newRef.getDownloadURL().then((url) => {
+			getDownloadURL(newRef).then((url) => {
 				console.log(url);
 				props.setImageURL(url);
 			});
-			setUploadTask();
 		});
 	};
 

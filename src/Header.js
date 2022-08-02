@@ -4,6 +4,7 @@ import './Header.css';
 import logo from './WRCLogo.png';
 import { EditIcon } from '@chakra-ui/icons';
 import { NavLink } from 'react-router-dom';
+import { ColorModeSwitcher } from './ColorModeSwitcher';
 
 const Header = (props) => {
 	const { toggleEdit } = props;
@@ -43,6 +44,7 @@ const Header = (props) => {
 						EW370
 					</Heading>
 				</NavLink>
+				<ColorModeSwitcher />
 			</Flex>
 		</Flex>
 	);

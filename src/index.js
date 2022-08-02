@@ -1,10 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+
+import { createRoot } from 'react-dom/client';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { FirebaseAppProvider } from 'reactfire';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, theme } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
 
 const firebaseConfig = {
@@ -18,21 +17,20 @@ const firebaseConfig = {
 	measurementId: 'G-T76ESPE2N6'
 };
 
-ReactDOM.render(
-	<React.StrictMode>
-		<ChakraProvider>
-			<FirebaseAppProvider firebaseConfig={firebaseConfig}>
-				{/* basename="/Users/wrc/elsberry" */}
-				<BrowserRouter>
-					<App />
-				</BrowserRouter>
-			</FirebaseAppProvider>
-		</ChakraProvider>
-	</React.StrictMode>,
-	document.getElementById('root')
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
+	<ChakraProvider theme={theme}>
+		<FirebaseAppProvider firebaseConfig={firebaseConfig}>
+			{/* basename="/Users/wrc/elsberry" */}
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</FirebaseAppProvider>
+	</ChakraProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

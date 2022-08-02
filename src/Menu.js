@@ -11,6 +11,7 @@ export default function Menu(props) {
 				return (
 					<Box key={key}>
 						<Box
+							textAlign={'center'}
 							onClick={() => {
 								window.localStorage.setItem('currLesson', key);
 								setCurrLesson(key);
