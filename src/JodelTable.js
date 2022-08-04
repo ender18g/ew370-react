@@ -143,11 +143,13 @@ const JodelLine = (props) => {
 			bg={jodel['output'] === 'happy' ? 'teal.300' : 'red.300'}
 			borderRadius="md"
 			boxShadow="lg"
+			width="100%"
+			minH={'50px'}
 			onClick={() => {
 				setShow(!show);
 			}}
 		>
-			<Flex minW="400px" minH={'50px'} justifyContent="center" alignItems="center">
+			<Flex justifyContent="center" alignItems="center">
 				<Text fontSize="lg">{jodel['input']}</Text>
 			</Flex>
 			{show && (
